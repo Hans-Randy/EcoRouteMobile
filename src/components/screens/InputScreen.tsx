@@ -1,16 +1,16 @@
+import { getMockRoutes } from "@/src/services/routeService";
+import { RootStackParamList } from "@/src/types/navigation";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Button,
   ActivityIndicator,
   Alert,
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "@/types/navigation";
-import { getMockRoutes } from "@/services/routeService";
 
 type InputScreenProps = NativeStackScreenProps<RootStackParamList, "Input">;
 

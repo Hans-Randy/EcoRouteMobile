@@ -1,5 +1,5 @@
-import routesData from "@assets/routes.json";
-import { Route } from "@/types";
+import routesData from "@/assets/routes.json";
+import { Route } from "@/src/types";
 
 // Simulate API call delay
 const MOCK_API_DELAY = 500; // 0.5 seconds

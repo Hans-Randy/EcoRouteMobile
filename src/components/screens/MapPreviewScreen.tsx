@@ -1,16 +1,8 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Dimensions,
-  Alert,
-} from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/types/navigation";
-import MapView, { Polyline, Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { Route } from "@/types";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import React from "react";
+import { Button, Dimensions, StyleSheet, Text, View } from "react-native";
+import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 
 type MapPreviewScreenProps = NativeStackScreenProps<
   RootStackParamList,
