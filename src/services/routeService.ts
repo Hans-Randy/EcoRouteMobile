@@ -12,8 +12,7 @@ export const getMockRoutes = async (): Promise<Route[]> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        // In a real app, this would be an API call (e.g., using axios or fetch)
-        // Here, we're directly using the imported JSON data
+        // Using the imported JSON data, in a real app, this would be an API call (e.g., using axios or fetch)
         if (routesData && Array.isArray(routesData)) {
           resolve(routesData as Route[]);
         } else {

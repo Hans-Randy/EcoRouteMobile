@@ -6,21 +6,19 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "@/types/navigation";
-import { Route } from "@/types";
+import { RootStackParamList } from "../../types/navigation";
+import { Route } from "../../types";
+import { getTopScoringRoutes } from "../../utils/routeUtils";
 
 type ResultsScreenProps = NativeStackScreenProps<RootStackParamList, "Results">;
 
 const ResultsScreen: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
   const { routes } = route.params;
 
-  // Sort routes by score ascending and take top 3
-  const sortedRoutes = [...routes]
-    .sort((a, b) => a.score - b.score)
-    .slice(0, 3);
+  // Use the utility function to get top 3 routes
+  const sortedRoutes = getTopScoringRoutes(routes, 3);
 
   const handleRoutePress = (selectedRoute: Route) => {
     // Navigate to MapPreviewScreen (optional bonus feature)
