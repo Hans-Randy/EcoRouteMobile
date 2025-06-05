@@ -23,12 +23,20 @@ This is a React Native (Expo) mobile application prototype designed to help user
     ```
 
 4.  **Run the application**:
+
     ```bash
     npm start
     # or
     # yarn start
     ```
+
     This will start the Metro bundler. You can then scan the QR code with the Expo Go app on your phone or run on a simulator (e.g., by pressing `a` for Android or `i` for iOS in the terminal if a simulator is set up).
+
+5.  **Run Unit Tests**:
+    ```bash
+    npm test
+    ```
+    This command executes Jest to run unit tests for utility functions and services.
 
 ---
 
@@ -49,27 +57,49 @@ This is a React Native (Expo) mobile application prototype designed to help user
 - **Language**: TypeScript is used for type safety and improved developer experience.
 - **Navigation**: `@react-navigation/native` and `@react-navigation/native-stack` are used for screen transitions and managing the navigation flow between the Input, Results, and Map Preview screens.
 - **HTTP Client (Conceptual)**: Although `axios` was installed as per instructions, the current implementation directly imports the mock JSON. If a real backend were used, `axios` would be the client for making API requests. The `routeService.ts` is structured to easily accommodate such a change.
-- **Maps**: `react-native-maps` is used for the bonus Map Preview screen, displaying a basic map with dummy coordinates, markers, and a polyline.
+- **Maps**: Platform-specific map implementations are used:
+  - **Mobile (iOS/Android)**: `react-native-maps` is used for displaying maps, markers, and polylines.
+  - **Web**: `@react-google-maps/api` is used for the web version. This requires a Google Maps JavaScript API key to be configured in a `.env` file as `REACT_APP_GOOGLE_MAPS_API_KEY`.
 - **Project Structure**:
   ```
-  /assets         # Static assets like routes.json
+  /assets         # Static assets (images, fonts, routes.json)
   /src
-      /components   # Reusable UI components (currently minimal, for future expansion)
-      /constants    # Application-wide constants (e.g., API keys, if any)
-      /contexts     # React Context API for global state (if needed beyond simple prop drilling)
-      /hooks        # Custom React hooks
-      /navigation   # Navigation setup (StackNavigator)
-      /screens      # Screen components (Input, Results, MapPreview)
-      /services     # Logic for data fetching (e.g., routeService.ts)
-      /types        # TypeScript type definitions (routes, navigation params)
+      /assets       # DEPRECATED? (Consider moving all assets to top-level /assets or clarifying usage)
+      /components   # Reusable UI components
+          AppNavigator.tsx          # Main stack navigator
+          PlatformMap.native.tsx  # Native map component
+          PlatformMap.web.tsx     # Web map component
+          /screens                # Screen components
+              InputScreen.tsx
+              ResultsScreen.tsx
+              MapPreviewScreen.tsx
+      /constants    # Application-wide constants (currently empty or not listed)
+      /contexts     # React Context API for global state (currently empty or not listed)
+      /hooks        # Custom React hooks (currently empty or not listed)
+      # /navigation was likely merged into /components/AppNavigator.tsx
+      /services     # Logic for data fetching
+          routeService.ts
+          /__tests__              # Unit tests for services
+              routeService.test.ts
+      /types        # TypeScript type definitions
+          index.ts                # Main types (e.g., Route)
+          map.ts                  # Map-related types (e.g., PlatformMapProps)
+          navigation.ts           # Navigation parameter types
       /utils        # Utility functions
+          routeUtils.ts
+          /__tests__              # Unit tests for utilities
+              routeUtils.test.ts
   App.tsx         # Root application component integrating navigation
+  babel.config.js # Babel configuration (essential for Jest and TypeScript)
   index.ts        # Entry point for registering the root component
+  # metro.config.js # (If present, for Metro bundler configuration)
+  package.json    # Project dependencies and scripts
   tsconfig.json   # TypeScript configuration with path aliases for cleaner imports
+  .env            # For environment variables (e.g., API keys) - NOT COMMITTED
   ```
 - **State Management**: Primarily React component state (`useState`) is used for managing local screen states (input fields, loading, errors). For a larger application, React Context API or a dedicated state management library (like Zustand or Redux Toolkit) would be considered.
 - **Styling**: React Native's `StyleSheet` API is used for styling. Efforts were made to maintain consistent spacing, typography, and ensure touch targets are adequately sized (≥48x48 dp where applicable).
-- **Clean Coding**: Followed principles of separation of concerns (e.g., service layer for data, distinct screen components, navigation logic) and modularity.
+- **Clean Coding**: Followed principles of separation of concerns (e.g., service layer for data, distinct screen components, navigation logic, platform-specific map components) and modularity. Unit tests for core logic have been introduced using Jest.
 
 ---
 
@@ -81,7 +111,7 @@ To evolve EcoRoute Mobile into a production-grade application, several key areas
 
 2.  **Address Input & Geocoding**: Implement proper address input fields with autocomplete/suggestions using a geocoding service (e.g., Google Places API). This would convert user-typed addresses into geographic coordinates (latitude/longitude) required by routing APIs.
 
-3.  **Advanced Map Features**: Enhance the `MapPreviewScreen` to display the actual route polyline received from the routing API. Add turn-by-turn navigation (potentially integrating with device-native navigation apps), display of alternative routes on the map, and real-time traffic information.
+3.  **Advanced Map Features**: Enhance the `MapPreviewScreen` to display the actual route polyline received from the routing API on both mobile and web. Add turn-by-turn navigation (potentially integrating with device-native navigation apps), display of alternative routes on the map, and real-time traffic information.
 
 4.  **State Management**: For more complex state interactions (e.g., user preferences, cached routes, global loading states), implement a more scalable state management solution like Zustand or Redux Toolkit. React Context API could be used for theming or simpler global states.
 
@@ -91,7 +121,7 @@ To evolve EcoRoute Mobile into a production-grade application, several key areas
 
 7.  **Offline Support & Caching**: Implement caching strategies for frequently accessed routes or map tiles to improve performance and provide limited offline functionality (e.g., using AsyncStorage or a local database like SQLite).
 
-8.  **Testing**: Introduce comprehensive testing, including unit tests (Jest, React Testing Library) for components and services, integration tests for navigation and data flow, and end-to-end tests (Appium, Detox) to ensure overall application stability.
+8.  **Testing**: Expand testing coverage. Current unit tests (Jest) for services and utilities should be maintained and augmented. Introduce component testing (React Native Testing Library) for UI elements and user interactions, integration tests for navigation and data flow, and end-to-end tests (Appium, Detox) to ensure overall application stability.
 
 9.  **CI/CD & Deployment**: Set up a Continuous Integration/Continuous Deployment (CI/CD) pipeline (e.g., using GitHub Actions, GitLab CI, or EAS Build/Submit) for automated testing, building, and deploying to app stores (Google Play Store, Apple App Store).
 

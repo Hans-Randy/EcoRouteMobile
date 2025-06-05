@@ -2,9 +2,9 @@ import { RootStackParamList } from "../types/navigation";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 
-import InputScreen from "../components/screens/InputScreen";
-import MapPreviewScreen from "../components/screens/MapPreviewScreen";
-import ResultsScreen from "../components/screens/ResultsScreen";
+import InputScreen from "./screens/InputScreen";
+import MapPreviewScreen from "./screens/MapPreviewScreen";
+import ResultsScreen from "./screens/ResultsScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
