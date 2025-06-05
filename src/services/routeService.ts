@@ -1,4 +1,4 @@
-import routesData from "@/assets/routes.json";
+import routesData from "@/src/assets/routes.json";
 import { Route } from "@/src/types";
 
 // Simulate API call delay
