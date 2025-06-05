@@ -1,8 +1,8 @@
-import { RootStackParamList } from "@/types/navigation";
+import { RootStackParamList } from "@/src/types/navigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Button, Dimensions, StyleSheet, Text, View } from "react-native";
-import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
+import PlatformMap from "../PlatformMap";
 
 type MapPreviewScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -19,44 +19,41 @@ const MapPreviewScreen: React.FC<MapPreviewScreenProps> = ({
 }) => {
   const { route: selectedRoute } = route.params;
 
+  const markers = [
+    {
+      coordinate: DUMMY_START_COORD,
+      title: "Start",
+      description: "Dummy Start Location",
+      color: "green",
+    },
+    {
+      coordinate: DUMMY_END_COORD,
+      title: "End",
+      description: "Dummy End Location",
+      color: "red",
+    },
+  ];
+
+  const initialRegion = {
+    latitude: (DUMMY_START_COORD.latitude + DUMMY_END_COORD.latitude) / 2,
+    longitude: (DUMMY_START_COORD.longitude + DUMMY_END_COORD.longitude) / 2,
+    latitudeDelta:
+      Math.abs(DUMMY_START_COORD.latitude - DUMMY_END_COORD.latitude) * 2.5,
+    longitudeDelta:
+      Math.abs(DUMMY_START_COORD.longitude - DUMMY_END_COORD.longitude) * 2.5,
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>
         Preview for: {selectedRoute.mode.toUpperCase()}
       </Text>
-      <MapView
-        provider={PROVIDER_GOOGLE} // Ensure Google Maps is used if API key is configured
+      <PlatformMap
         style={styles.map}
-        initialRegion={{
-          latitude: (DUMMY_START_COORD.latitude + DUMMY_END_COORD.latitude) / 2,
-          longitude:
-            (DUMMY_START_COORD.longitude + DUMMY_END_COORD.longitude) / 2,
-          latitudeDelta:
-            Math.abs(DUMMY_START_COORD.latitude - DUMMY_END_COORD.latitude) *
-            2.5,
-          longitudeDelta:
-            Math.abs(DUMMY_START_COORD.longitude - DUMMY_END_COORD.longitude) *
-            2.5,
-        }}
-      >
-        <Marker
-          coordinate={DUMMY_START_COORD}
-          title="Start"
-          description="Dummy Start Location"
-          pinColor="green"
-        />
-        <Marker
-          coordinate={DUMMY_END_COORD}
-          title="End"
-          description="Dummy End Location"
-          pinColor="red"
-        />
-        <Polyline
-          coordinates={[DUMMY_START_COORD, DUMMY_END_COORD]}
-          strokeColor="#007AFF" // Blue polyline
-          strokeWidth={4}
-        />
-      </MapView>
+        initialRegion={initialRegion}
+        markers={markers}
+        polyline={[DUMMY_START_COORD, DUMMY_END_COORD]}
+      />
       <View style={styles.detailsContainer}>
         <Text style={styles.detailText}>
           Distance: {selectedRoute.distance_km} km
@@ -87,8 +84,8 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   map: {
-    width: Dimensions.get("window").width * 0.95, // 95% of screen width
-    height: Dimensions.get("window").height * 0.5, // 50% of screen height
+    width: Dimensions.get("window").width * 0.95,
+    height: Dimensions.get("window").height * 0.5,
     borderRadius: 10,
     marginBottom: 15,
   },
