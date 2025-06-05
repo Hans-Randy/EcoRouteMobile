@@ -1,5 +1,5 @@
-import AppNavigator from "@/src/components/AppNavigator";
-import { useColorScheme } from "@/src/hooks/useColorScheme";
+import AppNavigator from "./components/AppNavigator";
+import { useColorScheme } from "./hooks/useColorScheme";
 import {
   DarkTheme,
   DefaultTheme,
@@ -15,7 +15,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 export default function App() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require("@/assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require("./assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   if (!loaded) {

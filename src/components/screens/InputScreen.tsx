@@ -1,5 +1,5 @@
-import { getMockRoutes } from "@/src/services/routeService";
-import { RootStackParamList } from "@/src/types/navigation";
+import { getMockRoutes } from "../../services/routeService";
+import { RootStackParamList } from "../../types/navigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import {

@@ -1,4 +1,4 @@
-import { RootStackParamList } from "@/src/types/navigation";
+import { RootStackParamList } from "../../types/navigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Button, Dimensions, StyleSheet, Text, View } from "react-native";
