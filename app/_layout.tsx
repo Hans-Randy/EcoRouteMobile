@@ -3,7 +3,6 @@ import { useColorScheme } from "../hooks/useColorScheme";
 import {
   DarkTheme,
   DefaultTheme,
-  NavigationContainer,
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
@@ -25,10 +24,8 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <NavigationContainer>
-          <AppNavigator />
-          <StatusBar style="auto" />
-        </NavigationContainer>
+        <AppNavigator />
+        <StatusBar style="auto" />
       </ThemeProvider>
     </SafeAreaProvider>
   );
