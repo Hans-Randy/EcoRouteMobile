@@ -62,40 +62,66 @@ This is a React Native (Expo) mobile application prototype designed to help user
   - **Web**: `@react-google-maps/api` is used for the web version. This requires a Google Maps JavaScript API key to be configured in a `.env` file as `REACT_APP_GOOGLE_MAPS_API_KEY`.
 - **Project Structure**:
   ```
-  /assets         # Static assets (images, fonts, routes.json)
-  /src
-      /assets       # DEPRECATED? (Consider moving all assets to top-level /assets or clarifying usage)
-      /components   # Reusable UI components
-          AppNavigator.tsx          # Main stack navigator
-          PlatformMap.native.tsx  # Native map component
-          PlatformMap.web.tsx     # Web map component
-          /screens                # Screen components
-              InputScreen.tsx
-              ResultsScreen.tsx
-              MapPreviewScreen.tsx
-      /constants    # Application-wide constants (currently empty or not listed)
-      /contexts     # React Context API for global state (currently empty or not listed)
-      /hooks        # Custom React hooks (currently empty or not listed)
-      # /navigation was likely merged into /components/AppNavigator.tsx
-      /services     # Logic for data fetching
-          routeService.ts
-          /__tests__              # Unit tests for services
-              routeService.test.ts
-      /types        # TypeScript type definitions
-          index.ts                # Main types (e.g., Route)
-          map.ts                  # Map-related types (e.g., PlatformMapProps)
-          navigation.ts           # Navigation parameter types
-      /utils        # Utility functions
-          routeUtils.ts
-          /__tests__              # Unit tests for utilities
-              routeUtils.test.ts
-  App.tsx         # Root application component integrating navigation
-  babel.config.js # Babel configuration (essential for Jest and TypeScript)
-  index.ts        # Entry point for registering the root component
-  # metro.config.js # (If present, for Metro bundler configuration)
-  package.json    # Project dependencies and scripts
-  tsconfig.json   # TypeScript configuration with path aliases for cleaner imports
-  .env            # For environment variables (e.g., API keys) - NOT COMMITTED
+  /
+  ├── app/
+  │   └── _layout.tsx
+  ├── assets/
+  │   ├── fonts/
+  │   │   └── SpaceMono-Regular.ttf
+  │   ├── images/
+  │   │   ├── adaptive-icon.png
+  │   │   ├── favicon.png
+  │   │   ├── icon.png
+  │   │   ├── partial-react-logo.png
+  │   │   ├── react-logo.png
+  │   │   ├── react-logo@2x.png
+  │   │   ├── react-logo@3x.png
+  │   │   └── splash-icon.png
+  │   ├── adaptive-icon.png
+  │   ├── favicon.png
+  │   ├── icon.png
+  │   ├── routes.json
+  │   └── splash-icon.png
+  ├── components/
+  │   ├── screens/
+  │   │   ├── InputScreen.tsx
+  │   │   ├── MapPreviewScreen.tsx
+  │   │   └── ResultsScreen.tsx
+  │   ├── AppNavigator.tsx
+  │   ├── PlatformMap.native.tsx
+  │   └── PlatformMap.web.tsx
+  ├── constants/
+  │   └── Colors.ts
+  ├── hooks/
+  │   ├── useColorScheme.ts
+  │   ├── useColorScheme.web.ts
+  │   └── useThemeColor.ts
+  ├── scripts/
+  │   └── reset-project.js
+  ├── services/
+  │   ├── __tests__/
+  │   │   └── routeService.test.ts
+  │   └── routeService.ts
+  ├── types/
+  │   ├── index.ts
+  │   ├── map.ts
+  │   └── navigation.ts
+  ├── utils/
+  │   ├── __tests__/
+  │   │   └── routeUtils.test.ts
+  │   └── routeUtils.ts
+  ├── .expo/
+  ├── .git/
+  ├── node_modules/
+  ├── .gitignore
+  ├── README.md
+  ├── app.json
+  ├── babel.config.js
+  ├── eslint.config.js
+  ├── expo-env.d.ts
+  ├── package-lock.json
+  ├── package.json
+  └── tsconfig.json
   ```
 - **State Management**: Primarily React component state (`useState`) is used for managing local screen states (input fields, loading, errors). For a larger application, React Context API or a dedicated state management library (like Zustand or Redux Toolkit) would be considered.
 - **Styling**: React Native's `StyleSheet` API is used for styling. Efforts were made to maintain consistent spacing, typography, and ensure touch targets are adequately sized (≥48x48 dp where applicable).
