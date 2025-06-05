@@ -5,29 +5,7 @@ import {
   Marker as GoogleMarker,
   useJsApiLoader,
 } from "@react-google-maps/api";
-
-interface PlatformMapProps {
-  initialRegion: {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number; // Not directly used by GoogleMap, but part of the shared prop type
-    longitudeDelta: number; // Not directly used by GoogleMap, but part of the shared prop type
-  };
-  markers: {
-    coordinate: {
-      latitude: number;
-      longitude: number;
-    };
-    title: string;
-    description: string;
-    color: string; // Not directly used by GoogleMarker default, but part of shared props
-  }[];
-  polyline: {
-    latitude: number;
-    longitude: number;
-  }[]; // Not implemented for web in this version, but part of shared props
-  style: any;
-}
+import { PlatformMapProps } from "../types/map"; // Added import, using relative path
 
 const PlatformMap: React.FC<PlatformMapProps> = ({
   initialRegion,

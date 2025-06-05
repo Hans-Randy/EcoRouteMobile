@@ -4,29 +4,7 @@ import MapView, {
   Polyline,
   PROVIDER_GOOGLE,
 } from "react-native-maps";
-
-interface PlatformMapProps {
-  initialRegion: {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-  };
-  markers: {
-    coordinate: {
-      latitude: number;
-      longitude: number;
-    };
-    title: string;
-    description: string;
-    color: string;
-  }[];
-  polyline: {
-    latitude: number;
-    longitude: number;
-  }[];
-  style: any;
-}
+import { PlatformMapProps } from "../types/map";
 
 const PlatformMap: React.FC<PlatformMapProps> = ({
   initialRegion,

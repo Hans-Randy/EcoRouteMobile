@@ -5,11 +5,11 @@ import React, { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
-  Button,
   StyleSheet,
   Text,
   TextInput,
   View,
+  TouchableOpacity,
 } from "react-native";
 
 type InputScreenProps = NativeStackScreenProps<RootStackParamList, "Input">;
@@ -51,31 +51,43 @@ const InputScreen: React.FC<InputScreenProps> = ({ navigation }) => {
       <TextInput
         style={styles.input}
         placeholder="From address"
+        placeholderTextColor="#a9a9a9"
         value={fromAddress}
         onChangeText={setFromAddress}
         returnKeyType="next"
+        accessibilityLabel="From address input"
       />
       <TextInput
         style={styles.input}
         placeholder="To address"
+        placeholderTextColor="#a9a9a9"
         value={toAddress}
         onChangeText={setToAddress}
         returnKeyType="search"
-        onSubmitEditing={handleFindRoutes} // Optionally submit on keyboard search button
+        onSubmitEditing={handleFindRoutes}
+        accessibilityLabel="To address input"
       />
 
       {error && <Text style={styles.errorText}>{error}</Text>}
 
       {isLoading ? (
-        <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />
+        <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />
       ) : (
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Find Routes"
-            onPress={handleFindRoutes}
-            disabled={!fromAddress.trim() || !toAddress.trim()} // Disable if fields are empty
-          />
-        </View>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            (!fromAddress.trim() || !toAddress.trim()) && styles.buttonDisabled,
+          ]}
+          onPress={handleFindRoutes}
+          disabled={!fromAddress.trim() || !toAddress.trim()}
+          activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityState={{
+            disabled: !fromAddress.trim() || !toAddress.trim(),
+          }}
+        >
+          <Text style={styles.buttonText}>Find Routes</Text>
+        </TouchableOpacity>
       )}
     </View>
   );
@@ -84,40 +96,50 @@ const InputScreen: React.FC<InputScreenProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    padding: 20,
-    backgroundColor: "#f5f5f5",
+    justifyContent: "flex-start",
+    paddingTop: 60,
+    paddingHorizontal: 25,
+    backgroundColor: "#f7f7f7",
   },
   label: {
-    fontSize: 28,
-    fontWeight: "bold",
+    fontSize: 26,
+    fontWeight: "600",
     textAlign: "center",
-    marginBottom: 30,
-    color: "#333",
+    marginBottom: 40,
+    color: "#2c2c2c",
   },
   input: {
-    backgroundColor: "#fff",
-    paddingHorizontal: 15,
-    paddingVertical: 12, // Increased for better touch target
-    borderRadius: 8,
-    marginBottom: 15,
+    backgroundColor: "#ffffff",
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderRadius: 10,
+    marginBottom: 20,
     borderWidth: 1,
-    borderColor: "#ddd",
-    fontSize: 16,
-    minHeight: 48, // Ensure touch target is adequate
+    borderColor: "#e0e0e0",
+    fontSize: 17,
+    color: "#333",
+    minHeight: 50,
   },
-  buttonContainer: {
-    marginTop: 10,
-    minHeight: 48, // Ensure touch target for button
+  button: {
+    marginTop: 25,
+    paddingVertical: 15,
+    alignItems: "center",
+    minHeight: 50,
   },
+  buttonText: {
+    fontSize: 18,
+    color: "#007AFF",
+    fontWeight: "500",
+  },
+  buttonDisabled: {},
   loader: {
-    marginTop: 20,
+    marginTop: 25,
   },
   errorText: {
-    color: "red",
+    color: "#D32F2F",
     textAlign: "center",
-    marginBottom: 10,
-    fontSize: 14,
+    marginBottom: 15,
+    fontSize: 15,
   },
 });
 
