@@ -5,9 +5,8 @@ describe("Route Service - getMockRoutes", () => {
   it("should return a promise that resolves to an array of routes", async () => {
     const routes = await getMockRoutes();
     expect(Array.isArray(routes)).toBe(true);
-    // Optionally, check if the array is not empty if your mock data always has routes
+
     if (routes.length > 0) {
-      // Check a sample route for expected properties
       const sampleRoute = routes[0];
       expect(sampleRoute).toHaveProperty("mode");
       expect(sampleRoute).toHaveProperty("distance_km");

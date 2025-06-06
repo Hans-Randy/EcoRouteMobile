@@ -17,12 +17,9 @@ type ResultsScreenProps = NativeStackScreenProps<RootStackParamList, "Results">;
 const ResultsScreen: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
   const { routes } = route.params;
 
-  // Use the utility function to get top 3 routes
   const sortedRoutes = getTopScoringRoutes(routes, 3);
 
   const handleRoutePress = (selectedRoute: Route) => {
-    // Navigate to MapPreviewScreen (optional bonus feature)
-    // For now, it navigates, but MapPreviewScreen is a placeholder
     navigation.navigate("MapPreview", { route: selectedRoute });
     // Alert.alert("Navigate to Map", `Would navigate to map for ${selectedRoute.mode}`);
   };
@@ -136,8 +133,8 @@ const styles = StyleSheet.create({
   },
   footerButtonContainer: {
     marginTop: 10,
-    paddingHorizontal: 10, // Ensure button is not edge-to-edge
-    minHeight: 48, // Ensure touch target
+    paddingHorizontal: 10,
+    minHeight: 48,
   },
 });
 

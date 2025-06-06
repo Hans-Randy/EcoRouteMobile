@@ -12,7 +12,6 @@ const PlatformMap: React.FC<PlatformMapProps> = ({
   polyline,
   style,
 }) => {
-  // Mobile implementation using react-native-maps
   return (
     <MapView
       provider={PROVIDER_GOOGLE}
